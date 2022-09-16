@@ -1,0 +1,27 @@
+#%RAML 1.0
+title: demo
+version: v1
+baseUri: http://localhost:8081/api/mule
+
+types:
+  Request: !include schemas/Request-Schema.xsd
+
+                   
+                                          
+/orderDetails:
+  post:
+    body:
+     application/xml:
+       type: Request
+       example:
+         !include examples/Request.xml
+          
+    responses:
+     200:
+       description: success
+       body:
+         application/json:
+           examples:
+             message: "Record  Inserted" 
+             
+             
