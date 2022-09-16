@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="JsonRequest" format="json">
+      <types:shape format="weave" example="examples/Request.json"><![CDATA[%dw 2.0
+
+type JsonRequest = {|
+  PurchaseOrders: {|
+    PurchaseOrder: Array<{|      PurchaseOrderNumber: Number {"typeId": "int"},       OrderDate: String,       Address: Array<{|        Name: String,         Street: String,         City: String,         State: String,         Zip: Number {"typeId": "int"},         Country: String,         "_Type": String      |}>, 
+      DeliveryNotes: String, 
+      Items: {|
+        Item: Array<{|          ProductName: String,           Quantity: Number {"typeId": "int"},           USPrice: Number {"typeId": "double"},           Comment: String,           "_PartNumber": String,           ShipDate: String        |}>
+      |}
+    |}>
+  |}
+|} {"example": "{\\\"PurchaseOrders\\\":{\\\"PurchaseOrder\\\":[{\\\"PurchaseOrderNumber\\\":99503,\\\"OrderDate\\\":\\\"10-20-1999\\\",\\\"Address\\\":[{\\\"Name\\\":\\\"Ellen Adams\\\",\\\"Street\\\":\\\"123 Maple Street\\\",\\\"City\\\":\\\"Mill Valley\\\",\\\"State\\\":\\\"CA\\\",\\\"Zip\\\":10999,\\\"Country\\\":\\\"USA\\\",\\\"_Type\\\":\\\"Shipping\\\"},{\\\"Name\\\":\\\"Tai Yee\\\",\\\"Street\\\":\\\"8 Oak Avenue\\\",\\\"City\\\":\\\"Old Town\\\",\\\"State\\\":\\\"PA\\\",\\\"Zip\\\":95819,\\\"Country\\\":\\\"USA\\\",\\\"_Type\\\":\\\"Billing\\\"}],\\\"DeliveryNotes\\\":\\\"Please leave packages in shed by driveway.\\\",\\\"Items\\\":{\\\"Item\\\":[{\\\"ProductName\\\":\\\"Lawnmower\\\",\\\"Quantity\\\":1,\\\"USPrice\\\":148.95,\\\"Comment\\\":\\\"Confirm this is electric\\\",\\\"_PartNumber\\\":\\\"872-AA\\\"},{\\\"ProductName\\\":\\\"Baby Monitor\\\",\\\"Quantity\\\":2,\\\"USPrice\\\":39.98,\\\"ShipDate\\\":\\\"1999-05-21\\\",\\\"_PartNumber\\\":\\\"872-AA\\\"}]}}]}}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#2463335e-a028-4ae5-8f3c-a92d20ec12a5">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="JsonRequest"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
